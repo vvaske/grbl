@@ -25,7 +25,10 @@
 
 #ifndef cpu_map_h
 #define cpu_map_h
-
+//Arduino nano
+#define GRBL_PLATFORM "Atmega328p"
+//Arduino nano cnc shield clone
+#define KEYS_CLONE false
 
 #ifdef CPU_MAP_ATMEGA328P // (Arduino Uno) Officially supported by Grbl.
 
@@ -36,17 +39,29 @@
   // Define step pulse output pins. NOTE: All step bit pins must be on the same port.
   #define STEP_DDR        DDRD
   #define STEP_PORT       PORTD
-  #define X_STEP_BIT      2  // Uno Digital Pin 2
-  #define Y_STEP_BIT      3  // Uno Digital Pin 3
-  #define Z_STEP_BIT      4  // Uno Digital Pin 4
+#ifdef KEYS_CLONE
+#define X_STEP_BIT      5  // CLONE NANO Digital Pin 5
+#define Y_STEP_BIT      6  // CLONE NANO Digital Pin 6
+#define Z_STEP_BIT      7  // CLONE NANO Digital Pin 7
+#else
+#define X_STEP_BIT      2  // Uno Digital Pin 2
+#define Y_STEP_BIT      3  // Uno Digital Pin 3
+#define Z_STEP_BIT      4  // Uno Digital Pin 4
+#endif // KEYS_CLONE
   #define STEP_MASK       ((1<<X_STEP_BIT)|(1<<Y_STEP_BIT)|(1<<Z_STEP_BIT)) // All step bits
 
   // Define step direction output pins. NOTE: All direction pins must be on the same port.
   #define DIRECTION_DDR     DDRD
   #define DIRECTION_PORT    PORTD
-  #define X_DIRECTION_BIT   5  // Uno Digital Pin 5
-  #define Y_DIRECTION_BIT   6  // Uno Digital Pin 6
-  #define Z_DIRECTION_BIT   7  // Uno Digital Pin 7
+#ifdef KEYS_CLONE
+#define X_DIRECTION_BIT   2  // CLONE NANO Digital Pin 2
+#define Y_DIRECTION_BIT   3  // CLONE NANO Digital Pin 3
+#define Z_DIRECTION_BIT   4  // CLONE NANO Digital Pin 4
+#else
+#define X_DIRECTION_BIT   5  // Uno Digital Pin 5
+#define Y_DIRECTION_BIT   6  // Uno Digital Pin 6
+#define Z_DIRECTION_BIT   7  // Uno Digital Pin 7
+#endif // KEYS_CLONE
   #define DIRECTION_MASK    ((1<<X_DIRECTION_BIT)|(1<<Y_DIRECTION_BIT)|(1<<Z_DIRECTION_BIT)) // All direction bits
 
   // Define stepper driver enable/disable output pin.
